@@ -5,6 +5,7 @@ angular.module('pinterestApp')
     $stateProvider
       .state('winboard', {
         url: '/winboard',
-        templateUrl: 'app/wins/winBoard.html'
+        templateUrl: 'app/wins/winBoard.html',
+        controller: 'WinboardCtrl'
       });
   });

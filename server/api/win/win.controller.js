@@ -1,4 +1,4 @@
-Win/**
+/**
  * Using Rails-like standard naming convention for endpoints.
  * GET     /wins              ->  index
  * POST    /wins              ->  create

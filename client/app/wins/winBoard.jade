@@ -3,25 +3,12 @@ div(ng-include='"components/navbar/navbar.html"')
 .container
   .row
     .col-lg-12
-      h1.page-header Recent wins:
-      ul.nav.nav-tabs.nav-stacked.col-md-4.col-lg-4.col-sm-6(ng-repeat='win in recentWins')
-        li
-          a(href='#', tooltip='{{win.info}}')
-            | {{win.name}}
-            button.close(type='button', ng-click='deleteWin(win)') ×
+      h1.page-header Recent wins
+  .container-masonry
+    .row 
+      .col-lg-12
+        .container(masonry masonry-options="{ transitionDuration: '0.4s', 'gutter': '10'}", column-width="215")
+          .masonry-brick.winning(ng-repeat="win in wins" ng-class="win.mediaType")
+            img(ng-src="{{win.mediaSrc}}")
 
-  form.thing-form
-    label Everyone sees your wins!
-    p.input-group
-      input.form-control(type='text', placeholder='Add a new win here.', ng-model='newWin')
-      span.input-group-btn
-        button.btn.btn-primary(type='submit', ng-click='addWin()') Add New
-
-footer.footer
-  .container
-    p
-      | Angular Fullstack v2.0.13
-      = ' | '
-      a(href='https://twitter.com/tyhenkel') @tyhenkel
-      = ' | '
-      a(href='https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open') Issues
+div(ng-include='"components/footer/footer.html"')
