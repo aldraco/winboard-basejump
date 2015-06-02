@@ -61,6 +61,41 @@ angular.module('pinterestApp')
         });
       },
 
+      syncUpdatesRecent: function(modelName, array, cb) {
+        cb = cb || angular.noop;
+
+        /**
+         * Syncs item creation/updates on model save, 
+         * but handles them in a way specific to the recent items controller's needs
+         */
+
+        socket.on(modelName + ':save', function(item) {
+          console.log('does this item have a name prop', item);
+          var oldItem = _.find(array, {_id: item._id});
+
+          var index = array.indexOf(oldItem);
+          var event = 'created';
+
+          // replace old Item if it exists
+          // otherwise just shift it into the collection
+
+          if (oldItem) {
+            array.splice(index, 1, item);
+          } else {
+            // instead of pushing, place the item at the beginning
+            array.unshift(item);
+          }
+
+          cb(event, item, array);
+
+          socket.on(modelName + ':remove', function (item) {
+            var event = 'deleted';
+            _.remove(array, {_id: item._id});
+            cb(event, item, array);
+          });
+        });
+      },
+
       /**
        * Removes listeners for a models updates on the socket
        *

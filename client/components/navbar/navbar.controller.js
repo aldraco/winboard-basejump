@@ -2,18 +2,6 @@
 
 angular.module('pinterestApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth) {
-    $scope.menu = [
-      {
-        'title': 'Home',
-        'link': '/',
-        'state' : 'home'
-      },
-      {
-        'title' : 'Wins',
-        'link' : '/winboard',
-        'state' : 'winboard'
-      }
-    ];
 
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;

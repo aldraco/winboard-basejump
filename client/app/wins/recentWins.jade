@@ -1,29 +1,28 @@
 div(ng-include='"components/navbar/navbar.html"')
 
-.container.winboard
+.container
   .row
     .col-lg-12.page-header
-      h1(ng-if='!viewingProfile') Your Winboard
-      h1(ng-if='viewingProfile') {{currentUser.name}}'s Wins
+      h1 Recent Wins
   .container-masonry
     .row 
       .col-lg-12
         .container(masonry masonry-options="{ transitionDuration: '0.4s', 'gutter': '10'}", column-width="215")
-          .masonry-brick.winning.image(ng-if='!viewingProfile')
-            button.btn.btn-primary(ng-click='addWin()') Add a Win
-            h4 add new win
-          .masonry-brick.winning(ng-repeat="win in wins" ng-class="win.mediaType || 'image' ")
+          .masonry-brick.winning(ng-repeat="win in recentWins track by $index" ng-class="win.mediaType || 'image' ")
             img(ng-src="{{win.mediaSrc}}")
-            h4.text-center {{win.title}}
-            .winning-metadata
+            h4 {{win.title}}
+            .winning-metadata(ng-if='win.user._id !== currentUser._id')
               .col-sm-6.pull-left
-                a.close.glyphicon.glyphicon-remove-circle(ng-if='!viewingProfile', ng-click='deleteWin(win._id)', href='#')
-              .col-sm-6.pull-right(ng-if='viewingProfile')
+                h6: a(ui-sref='userProfile({user_id: win.user._id})') {{win.user.name}}
+              .col-sm-6.pull-right
                 a(ng-click='likeWin(win._id)', ng-href='#'): span.glyphicon.glyphicon-heart 
                 span {{win.hearts || 0}}
                 a(ng-click='reblogWin(win._id)', ng-href='#'): span.glyphicon.glyphicon-repeat
                 span {{win.reblogs || 0}}
-              .col-sm-6.pull-right(ng-if='!viewingProfile')
+            .winning-metadata(ng-if='win.user._id === currentUser._id')
+              .col-sm-6.pull-left
+                h6 You
+              .col-sm-6.pull-right
                 span.glyphicon.glyphicon-heart 
                 span {{win.hearts || 0}}
                 span.glyphicon.glyphicon-repeat

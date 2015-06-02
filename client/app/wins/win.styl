@@ -11,17 +11,63 @@ body
   min-height 100px
   float left
   width 60px
+  color #222
+  margin-top 5px
   
   img
     width 100%
     margin 0 auto
     position relative
+    
+  button
+    margin 0 auto
+    display block
+    
+  h4
+    text-align center
+    margin-top 20px
+  
+  .winning-metadata
+    .glyphicon
+      margin 10px
+    .col-sm-6
+      padding 0
+      &.pull-right
+        text-align right
+    a.close
+      float left
+      text-decoration none
+      font-size 1.8em
+      margin 0
+      top 8px
+      &:hover
+        text-decoration none
+        color red
 .image
-  width 215px
+  width 210px
 .video
-  width 430px
+  width 425px
     
 .container-masonry
   position relative
   width 100%
   
+.winboard
+  .page-header
+    margin-top 0
+    font-size 3em
+  button#addWins
+    position relative
+    
+.modal-body 
+  color #222
+  form
+    padding 15px
+.modal-header
+  color #111
+
+.addWin-preview
+  height 300px
+  border 2px solid gray
+    img
+      max-width 100%

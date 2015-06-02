@@ -13,6 +13,9 @@ exports.register = function(socket) {
   win.schema.post('remove', function (doc) {
     onRemove(socket, doc);
   });
+  win.schema.post('like', function(doc) {
+    onLike(socket, doc);
+  })
 }
 
 function onSave(socket, doc, cb) {
@@ -21,4 +24,8 @@ function onSave(socket, doc, cb) {
 
 function onRemove(socket, doc, cb) {
   socket.emit('win:remove', doc);
+}
+
+function onLike(socket, doc, cb) {
+  socket.emit('win:like', doc);
 }

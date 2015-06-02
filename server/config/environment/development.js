@@ -8,5 +8,5 @@ module.exports = {
     uri: 'mongodb://localhost/pinterest-dev'
   },
 
-  seedDB: true
+  seedDB: false
 };

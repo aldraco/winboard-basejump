@@ -35,15 +35,15 @@ exports.create = function (req, res, next) {
 };
 
 /**
- * Get a single user
+ * Get a single user, should also return their wins
  */
 exports.show = function (req, res, next) {
   var userId = req.params.id;
 
-  User.findById(userId, function (err, user) {
+  User.findById(userId, 'id name wins').populate('wins').exec(function(err, user) {
     if (err) return next(err);
     if (!user) return res.send(401);
-    res.json(user.profile);
+    res.json(user);
   });
 };
 
@@ -86,7 +86,7 @@ exports.me = function(req, res, next) {
   var userId = req.user._id;
   User.findOne({
     _id: userId
-  }, '-salt -hashedPassword', function(err, user) { // don't ever give out the password or salt
+  }, '-salt -hashedPassword').populate('wins').exec(function(err, user) { // don't ever give out the password or salt
     if (err) return next(err);
     if (!user) return res.json(401);
     res.json(user);
