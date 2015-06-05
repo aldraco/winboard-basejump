@@ -1,6 +1,6 @@
 div(ng-include='"components/navbar/navbar.html"')
 
-.container
+.container.winboard
   .row
     .col-lg-12.page-header
       h1 Recent Wins
@@ -11,18 +11,18 @@ div(ng-include='"components/navbar/navbar.html"')
           .masonry-brick.winning(ng-repeat="win in recentWins track by $index" ng-class="win.mediaType || 'image' ")
             img(ng-src="{{win.mediaSrc}}")
             h4 {{win.title}}
-            .winning-metadata(ng-if='win.user._id !== currentUser._id')
-              .col-sm-6.pull-left
-                h6: a(ui-sref='userProfile({user_id: win.user._id})') {{win.user.name}}
-              .col-sm-6.pull-right
+            .winning-metadata(ng-if='win.creator._id !== currentUser._id')
+              .col-sm-5.pull-left
+                h6: a(ui-sref='userProfile({user_id: win.creator._id})') {{win.creator.name}}
+              .col-sm-7.pull-right
                 a(ng-click='likeWin(win._id)', ng-href='#'): span.glyphicon.glyphicon-heart 
                 span {{win.hearts || 0}}
                 a(ng-click='reblogWin(win._id)', ng-href='#'): span.glyphicon.glyphicon-repeat
                 span {{win.reblogs || 0}}
             .winning-metadata(ng-if='win.user._id === currentUser._id')
-              .col-sm-6.pull-left
+              .col-sm-5.pull-left
                 h6 You
-              .col-sm-6.pull-right
+              .col-sm-7.pull-right
                 span.glyphicon.glyphicon-heart 
                 span {{win.hearts || 0}}
                 span.glyphicon.glyphicon-repeat

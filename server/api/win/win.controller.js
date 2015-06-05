@@ -23,7 +23,7 @@ exports.index = function(req, res) {
 
 // Get most recent 100 wins
 exports.recent = function(req, res) {
-  var query = Win.find().sort('-timestamp').populate('user', 'name').limit(20);
+  var query = Win.find().sort('-timestamp').populate('creator', 'name').limit(20);
   query.exec(function(err, wins) {
     if (err) { return handleError(res, err); }
     return res.json(wins);
@@ -49,7 +49,7 @@ exports.create = function(req, res) {
   var win = new Win(req.body);
   win.timestamp = Date.now();
 
-  var user = win.user;
+  var user = win.creator;
 
   console.log('this is the new win', win);
 
@@ -86,17 +86,30 @@ exports.update = function(req, res) {
 
 // Users can 'like' a win, which updates the hearts count
 exports.likeWin = function (req, res) {
-  var id = req.params.id;
+  var winId = req.params.id,
+      newUserId = req.body.newUserId;
 
-  Win.findById(id, function(err, win) {
+  User.findById(newUserId, function(err, user) {
     if (err) { return handleError(res, err); }
-    if (!win) { return res.send(404); }
-    win.like(function(err, win) {
-      if (err) {
-        return handleError(res, err);
-      }
-      return res.json(200, win);
-    });
+    if (!user) { return res.send(404); }  
+    // check if this user has already liked this win
+    if (user.loved.indexOf(winId) >= 0) {
+      // if they have, return now
+      // 403 is request forbidden
+      return res.send(403);
+    } else {
+      // otherwise, proceed
+      user.loved.push(winId);
+      user.save(function(err) {
+        if (err) { return handleError(res, err); }
+        Win.findById(winId, function(err, win) {
+          win.like(function(err, win) {
+          if (err) { return handleError(res, err); }
+          return res.json(200, win);
+        });
+      });
+      });
+    }
   });
 };
 
@@ -105,28 +118,28 @@ exports.reblogWin = function(req, res) {
   var thisWin = req.params.id,
       newUserId = req.body.newUserId;
 
-  Win.findById(thisWin, function(err, win) {
+  User.findById(newUserId, function(err, user) {
     if (err) { return handleError(res, err); }
-    if (!win) { return res.send(404); }
-    win.reblog(function(err, win) {
-      if (err) {return handleError(res, err); }
-      User.findById(newUserId, function(err, user) {
-        if (err) { return handelError(res, err); }
-        if (!user) { return res.send(404); }
-        else {
-          if (user.wins.indexOf(win)) {
-            user.wins.push(thisWin);
-            user.save(function(err) {
+    if (!user) { return res.send(404); }  
+    // check if this user has already liked this win
+    if (user.reblogged.indexOf(thisWin) >= 0) {
+      // if they have, return now
+      // 403 is request forbidden
+      return res.send(403);
+    } else {
+      // otherwise, proceed
+      user.reblogged.push(thisWin);
+      user.wins.push(thisWin);
+      user.save(function(err) {
+        if (err) { return handleError(res, err); }
+        Win.findById(thisWin, function(err, win) {
+          win.reblog(function(err, win) {
             if (err) { return handleError(res, err); }
-              return res.json(200, win);
-            });
-          } else {
-            return res.json(401, win);
-          }
-
-        }
+            return res.json(200, win);
+          });
+        });
       });
-    });
+    }
   });
 
 
@@ -134,15 +147,47 @@ exports.reblogWin = function(req, res) {
 
 // Deletes a win from the DB.
 exports.destroy = function(req, res) {
-  Win.findById(req.params.id, function (err, win) {
-    if(err) { return handleError(res, err); }
-    if(!win) { return res.send(404); }
+
+  var winId = req.params.id;
+  // this function only works if the user is the owner of the win
+  // all other requests go to removeFromBoard
+
+  Win.findById(winId, function(err, win) {
+    if (err) { return handleError(res, err); }
+    if (!win) { return res.send(404); }
     win.remove(function(err) {
-      if(err) { return handleError(res, err); }
-      return res.send(204);
+      if (err) { return handleError(res, err); }
+      return res.json(204, win);
     });
   });
 };
+
+exports.removeFromBoard = function(req, res) {
+  var deletingUser = req.body.currentUser;
+  var winId = req.params.id;
+  console.log('remove from board', req.params, req.body);
+
+  User.findById(deletingUser, function(err, user) {
+    if (err) { return handleError(res, err); }
+    if (!user) { return res.send(404); }  
+    var userWins = user.wins;
+    var index = userWins.indexOf(winId);
+    if (index >= 0) {
+      // remove from the list
+      userWins.splice(index, 1);
+      user.wins = userWins;
+      user.save(function(err) {
+        if (err) { return handleError(err); }
+        return res.json(200, user);
+      });
+    } else {
+      return res.json(204, user);
+    }
+
+  });
+};
+
+
 
 function handleError(res, err) {
   return res.send(500, err);

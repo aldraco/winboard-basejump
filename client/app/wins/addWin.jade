@@ -4,18 +4,18 @@
   .addWin-preview
     img(ng-src='{{newWin.mediaSrc}}')
   form.row
-    h5 Title 
+    h4 Title 
     input(ng-model='newWin.title', name='title')
-    h5 Source (http link)
+    h4 Source (http link)
     input(ng-model='newWin.mediaSrc', name='src')
-    h5 Type of Media
+    h4 Type of Media
     .col-sm-12
       .col-sm-6
         p Image
         input(type='radio', value='image', checked, name='mediaType', ng-model='newWin.mediaType')
       .col-sm-6
-        p Video
-        input(type='radio', value='video', name='mediaType', ng-model='newWin.mediaType')
+        p Video (Coming Soon!)
+        input(type='radio', value='video', name='mediaType', ng-model='newWin.mediaType' disabled)
 .modal-footer
   button.btn.btn-primary(ng-click='ok(newWin)') OK
   button.btn.btn-warning(ng-click='cancel()') Cancel

@@ -4,13 +4,13 @@ div(ng-include='"components/navbar/navbar.html"')
   #hero-picture.col-sm-12
     h1 share awesome
     p.lead Winterest is your place online to celebrate 'wins' - to share the awesome that happens every day.
-    #social-button-bar
+    #social-button-bar(ng-show='!isLoggedIn()')
       .row.col-md-12
         .col-md-8
           .col-md-6
-            button.btn.btn-primary Login
+            a(ui-sref='login'): button.btn.btn-primary() Login
           .col-md-6
-            button.btn.btn-warning Sign Up
+            a(ui-sref='signup'): button.btn.btn-warning Sign Up
         .col-md-2
       .row.col-md-12
         .col-md-10
@@ -23,7 +23,15 @@ div(ng-include='"components/navbar/navbar.html"')
     .col-lg-12
       header#banner.hero-unit
         h1 WINTEREST
-  .row
+.row
+  .container
+    .col-sm-12
+      .container(masonry masonry-options="{ transitionDuration: '0.4s', 'gutter': '17'}", column-width="215")
+        .masonry-brick.winning(ng-repeat="win in wins" ng-class="win.mediaType || 'image' ")
+            img(ng-src="{{win.mediaSrc}}")
+            h4.text-center {{win.title}}
+.row
+  .container
     .col-sm-12
       .row.featurette
         .col-sm-7
@@ -38,6 +46,17 @@ div(ng-include='"components/navbar/navbar.html"')
             li overcoming the odds
             li life.
           p.lead Who needs pins when you've got wins?
+          h2.featurette-heading
+          | This project is part of the curriculum at 
+          a(href='http://freecodecamp.com') Free Code Camp.
+          p
+            | Students at FCC build 'basejumps,' which are full-stack apps,
+            | according to project spec and user stories given in the curriculum.
+            p Please check out some of my other projects at:
+            ul
+              li: a(href='http://aldraco.github.io') My portfolio
+              li: a(href='http://codepen.io/aldraco/') Codepen
+              li: a(href='http://github.com/aldraco') Github
 
 
 div(ng-include='"components/footer/footer.html"')

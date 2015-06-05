@@ -16,14 +16,14 @@ div(ng-include='"components/navbar/navbar.html"')
             img(ng-src="{{win.mediaSrc}}")
             h4.text-center {{win.title}}
             .winning-metadata
-              .col-sm-6.pull-left
+              .col-sm-5.pull-left
                 a.close.glyphicon.glyphicon-remove-circle(ng-if='!viewingProfile', ng-click='deleteWin(win._id)', href='#')
-              .col-sm-6.pull-right(ng-if='viewingProfile')
+              .col-sm-7.pull-right(ng-if='viewingProfile')
                 a(ng-click='likeWin(win._id)', ng-href='#'): span.glyphicon.glyphicon-heart 
                 span {{win.hearts || 0}}
                 a(ng-click='reblogWin(win._id)', ng-href='#'): span.glyphicon.glyphicon-repeat
                 span {{win.reblogs || 0}}
-              .col-sm-6.pull-right(ng-if='!viewingProfile')
+              .col-sm-7.pull-right(ng-if='!viewingProfile')
                 span.glyphicon.glyphicon-heart 
                 span {{win.hearts || 0}}
                 span.glyphicon.glyphicon-repeat

@@ -15,7 +15,10 @@ exports.register = function(socket) {
   });
   win.schema.post('like', function(doc) {
     onLike(socket, doc);
-  })
+  });
+  win.schema.post('reblog', function(doc) {
+    onReblog(socket, doc);
+  });
 }
 
 function onSave(socket, doc, cb) {
@@ -28,4 +31,8 @@ function onRemove(socket, doc, cb) {
 
 function onLike(socket, doc, cb) {
   socket.emit('win:like', doc);
+}
+
+function onReblog(socket, doc, cb) {
+  socket.emit('win:reblog', doc);
 }

@@ -14,7 +14,7 @@ var WinSchema = new Schema({
   hearts:     {type: Number, default: 0},
   reblogs:    {type: Number, default: 0},
   sourceUrl:  {type: String, default: ''},
-  user:       {type: Schema.Types.ObjectId, ref: 'User'}
+  creator:       {type: Schema.Types.ObjectId, ref: 'User'}
 
 });
 

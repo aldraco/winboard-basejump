@@ -87,12 +87,12 @@ angular.module('pinterestApp')
           }
 
           cb(event, item, array);
+        });
 
-          socket.on(modelName + ':remove', function (item) {
-            var event = 'deleted';
-            _.remove(array, {_id: item._id});
-            cb(event, item, array);
-          });
+        socket.on(modelName + ':remove', function (item) {
+          var event = 'deleted';
+          _.remove(array, {_id: item._id});
+          cb(event, item, array);
         });
       },
 
