@@ -41,7 +41,6 @@ angular.module('pinterestApp')
                 return data.data;
               })
               .error(function(data, status, headers, config) {
-                console.log('error');
               });
           }
         }
