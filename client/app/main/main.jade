@@ -1,26 +1,43 @@
 div(ng-include='"components/navbar/navbar.html"')
 
-header#banner.hero-unit
-  .container
-    h1 WINTEREST
-    p.lead Who needs pins whens you have wins?
-    img(src='assets/images/yeoman.png', alt='I\'m Yeoman')
+.container
+  #hero-picture.col-sm-12
+    h1 share awesome
+    p.lead Winterest is your place online to celebrate 'wins' - to share the awesome that happens every day.
+    #social-button-bar
+      .row.col-md-12
+        .col-md-8
+          .col-md-6
+            button.btn.btn-primary Login
+          .col-md-6
+            button.btn.btn-warning Sign Up
+        .col-md-2
+      .row.col-md-12
+        .col-md-10
+          p.lead 
+          | Check out some of the most 
+          a(ui-sref='recentWins') recent wins.
 
 .container
   .row
     .col-lg-12
-      h1.page-header Recent wins:
-      ul.nav.nav-tabs.nav-stacked.col-md-4.col-lg-4.col-sm-6(ng-repeat='win in recentWins')
-        li
-          a(href='#', tooltip='{{win.info}}')
-            | {{win.name}}
-            button.close(type='button', ng-click='deleteWin(win)') ×
+      header#banner.hero-unit
+        h1 WINTEREST
+  .row
+    .col-sm-12
+      .row.featurette
+        .col-sm-7
+          h1 Inspired by this video
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/xqbEyZxc0xo?rel=0" frameborder="0" allowfullscreen></iframe>
+        .col-sm-5
+          h2.featurette-heading Let's celebrate:
+          ul
+            li awesome tricks
+            li new ideas
+            li feats of superb balance
+            li overcoming the odds
+            li life.
+          p.lead Who needs pins when you've got wins?
 
-  form.thing-form
-    label Everyone sees your wins!
-    p.input-group
-      input.form-control(type='text', placeholder='Add a new win here.', ng-model='newWin')
-      span.input-group-btn
-        button.btn.btn-primary(type='submit', ng-click='addWin()') Add New
 
 div(ng-include='"components/footer/footer.html"')
