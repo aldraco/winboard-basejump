@@ -19,7 +19,7 @@ div(ng-include='"components/navbar/navbar.html"')
                 span {{win.hearts || 0}}
                 a(ng-click='reblogWin(win._id)', ng-href='#'): span.glyphicon.glyphicon-repeat
                 span {{win.reblogs || 0}}
-            .winning-metadata(ng-if='win.user._id === currentUser._id')
+            .winning-metadata(ng-if='win.creator._id === currentUser._id')
               .col-sm-5.pull-left
                 h6 You
               .col-sm-7.pull-right

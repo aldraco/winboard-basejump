@@ -3,20 +3,21 @@ div(ng-include='"components/navbar/navbar.html"')
 .container
   #hero-picture.col-sm-12
     h1 share awesome
-    p.lead Winterest is your place online to celebrate 'wins' - to share the awesome that happens every day.
-    #social-button-bar(ng-show='!isLoggedIn()')
-      .row.col-md-12
-        .col-md-8
-          .col-md-6
-            a(ui-sref='login'): button.btn.btn-primary() Login
-          .col-md-6
-            a(ui-sref='signup'): button.btn.btn-warning Sign Up
-        .col-md-2
-      .row.col-md-12
-        .col-md-10
-          p.lead 
-          | Check out some of the most 
-          a(ui-sref='recentWins') recent wins.
+    .row
+      .col-sm-12
+        .col-sm-12.col-md-4
+          p.lead Winterest is your place online to celebrate 'wins' - to share the awesome that happens every day.
+        .col-sm-12.col-md-8
+          #social-button-bar(ng-show='!isLoggedIn()')
+            .row.col-sm-12
+              .col-sm-6.text-center
+                a(ui-sref='login'): button.btn.btn-primary() Login
+              .col-sm-6.text-center
+                a(ui-sref='signup'): button.btn.btn-warning Sign Up
+            .row.col-sm-12
+              p.lead 
+              | Check out some of the most 
+              a(ui-sref='recentWins') recent wins.
 
 .container
   .row
@@ -34,10 +35,10 @@ div(ng-include='"components/navbar/navbar.html"')
   .container
     .col-sm-12
       .row.featurette
-        .col-sm-7
+        .col-md-7.col-sm-12
           h1 Inspired by this video
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/xqbEyZxc0xo?rel=0" frameborder="0" allowfullscreen></iframe>
-        .col-sm-5
+          <iframe src="https://www.youtube.com/embed/xqbEyZxc0xo?rel=0" frameborder="0" allowfullscreen></iframe>
+        .col-md-5.col-sm-12
           h2.featurette-heading Let's celebrate:
           ul
             li awesome tricks
