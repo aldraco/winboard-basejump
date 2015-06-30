@@ -5,13 +5,13 @@ angular.module('pinterestApp')
     $stateProvider
       .state('winboard', {
         url: '/winboard',
-        templateUrl: 'app/wins/winBoard.html',
+        templateUrl: 'app/wins/winboards/winBoard.html',
         controller: 'WinboardCtrl',
         authenticate: true
       })
       .state('recentWins', {
         url: '/recents',
-        templateUrl: 'app/wins/recentWins.html',
+        templateUrl: 'app/wins/winboards/recentWins.html',
         controller: 'RecentWinsCtrl',
         resolve: {
           recentWins: function($http) {
@@ -30,7 +30,7 @@ angular.module('pinterestApp')
       })
       .state('userProfile', {
         url: 'users/:user_id',
-        templateUrl: 'app/wins/winBoard.html',
+        templateUrl: 'app/wins/winboards/winBoard.html',
         controller: 'profileCtrl',
         resolve: {
           viewingUser: function($http, $stateParams) {

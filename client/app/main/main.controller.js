@@ -7,7 +7,6 @@ angular.module('pinterestApp')
     $scope.isLoggedIn = Auth.isLoggedIn;
     
     
-    // TODO modify to get only recent wins, and later get a stream of latest wins 
     $http.get('/api/wins/recent').success(function(recentWins) {
       $scope.wins = recentWins.slice(0, 10);
       socket.syncUpdates('win', $scope.wins, function(event, win, wins) {

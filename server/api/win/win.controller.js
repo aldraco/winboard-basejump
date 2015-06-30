@@ -102,7 +102,7 @@ exports.likeWin = function (req, res) {
       user.loved.push(winId);
       user.save(function(err) {
         if (err) { return handleError(res, err); }
-        Win.findById(winId, function(err, win) {
+        Win.findById(winId).populate('creator', 'name').exec(function(err, win) {
           win.like(function(err, win) {
           if (err) { return handleError(res, err); }
           return res.json(200, win);

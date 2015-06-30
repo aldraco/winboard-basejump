@@ -4,7 +4,7 @@
 angular.module('pinterestApp')
   .factory('socket', function(socketFactory) {
 
-    // socket.io now auto-configures its connection when we ommit a connection url
+    // socket.io now auto-configures its connection when we omit a connection url
     var ioSocket = io('', {
       // Send auth token on connection, you will need to DI the Auth service above
       // 'query': 'token=' + Auth.getToken()
@@ -70,7 +70,6 @@ angular.module('pinterestApp')
          */
 
         socket.on(modelName + ':save', function(item) {
-          console.log('does this item have a name prop', item);
           var oldItem = _.find(array, {_id: item._id});
 
           var index = array.indexOf(oldItem);
