@@ -8,9 +8,9 @@ angular.module('pinterestApp')
     
     
     $http.get('/api/wins/recent').success(function(recentWins) {
-      $scope.wins = recentWins.slice(0, 10);
+      $scope.wins = recentWins.slice(0, 5);
       socket.syncUpdates('win', $scope.wins, function(event, win, wins) {
-        if ($scope.wins.length > 10) {
+        if ($scope.wins.length > 5) {
           $scope.wins.shift();
         }
       });

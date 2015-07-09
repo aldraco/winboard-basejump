@@ -1,38 +1,16 @@
 div(ng-include='"components/navbar/navbar.html"')
-
 .container
-  #hero-picture.col-sm-12
-    h1 share awesome
-    .row
-      .col-sm-12
-        .col-sm-12.col-md-4
-          p.lead Winterest is your place online to celebrate 'wins' - to share the awesome that happens every day.
-        .col-sm-12.col-md-8
-          #social-button-bar(ng-show='!isLoggedIn()')
-            .row.col-sm-12
-              .col-sm-6.text-center
-                a(ui-sref='login'): button.btn.btn-primary() Login
-              .col-sm-6.text-center
-                a(ui-sref='signup'): button.btn.btn-warning Sign Up
-            .row.col-sm-12
-              p.lead 
-              | Check out some of the most 
-              a(ui-sref='recentWins') recent wins.
-
-.container
+  #hero-unit
+    h1 #win
   .row
-    .col-lg-12
-      header#banner.hero-unit
-        h1 WINTEREST
-.row
-  .container
     .col-sm-12
+      #feature-banner
+        h1 #moreWins
       .container(masonry masonry-options="{ transitionDuration: '0.4s', 'gutter': '17'}", column-width="215")
         .masonry-brick.winning(ng-repeat="win in wins" ng-class="win.mediaType || 'image' ")
             img(ng-src="{{win.mediaSrc}}")
             h4.text-center {{win.title}}
-.row
-  .container
+  .row
     .col-sm-12
       .row.featurette
         .col-md-7.col-sm-12
