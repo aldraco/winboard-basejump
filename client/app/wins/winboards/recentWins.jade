@@ -27,5 +27,14 @@ div(ng-include='"components/navbar/navbar.html"')
                 span {{win.hearts || 0}}
                 span.glyphicon.glyphicon-repeat
                 span {{win.reblogs || 0}}
+  .need-more-wins(ng-if='message')
+    h3 {{message}}
+    .row.col-sm-12
+      .col-sm-4
+      .col-sm-4
+        button.btn.btn-primary(href='/signup') Sign Up 
+        span  or 
+        button.btn.btn-info(href='/login') Login
+      .col-sm-4
 
 div(ng-include='"components/footer/footer.html"')

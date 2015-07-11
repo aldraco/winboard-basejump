@@ -4,6 +4,11 @@
 .container
   @media (min-width: 1200px)
     width 1400px
+    
+.headline-div
+  position relative
+  top 50%
+  text-align center
 
 #hero-unit
   background-image url('../../assets/images/freeski1.jpeg')
@@ -13,10 +18,11 @@
   position relative
   
   h1
+    @extend .headline-div
     font-size 15em
-    position relative
-    top 50%
-    text-align center
+  p.lead
+    @extend .headline-div
+    font-size 2.6em
   @media XLSize
     height 900px
     background-position-x 0
@@ -54,12 +60,14 @@ masonry
   
 
 .footer
-    border-top 1px solid #E5E5E5
-    margin-top 70px
-    padding 30px 0
-    text-align center
-    a 
-      color #05938C
+  background-color #333
+  box-shadow 0 -2px 2px #333
+  font-size 1.6em
+  margin-top 70px
+  padding 30px 0
+  text-align center
+  a 
+    color #05938C
 iframe
   width 90%
   min-height 300px

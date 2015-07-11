@@ -97,6 +97,9 @@ angular.module('pinterestApp')
   .controller('RecentWinsCtrl', ['$scope', 'recentWins', 'socket', '$http', 'Auth', function($scope, recentWins, socket, $http, Auth) {
     // from resolve, will be an array 100 wins
     $scope.recentWins = recentWins.data;
+    if (recentWins.data.length < 10) {
+      $scope.message = 'We need some more wins! Why don\'t you sign up and add a few?';
+    }
     $scope.currentUser = Auth.getCurrentUser();
     $scope.holder = [];
 
