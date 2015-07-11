@@ -27,7 +27,7 @@ div(ng-include='"components/navbar/navbar.html"')
                 span {{win.hearts || 0}}
                 span.glyphicon.glyphicon-repeat
                 span {{win.reblogs || 0}}
-  .need-more-wins(ng-if='message')
+  .need-more-wins(ng-if='!currentUser._id && message')
     h3 {{message}}
     .row.col-sm-12
       .col-sm-4

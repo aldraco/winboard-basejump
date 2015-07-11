@@ -101,6 +101,7 @@ angular.module('pinterestApp')
       $scope.message = 'We need some more wins! Why don\'t you sign up and add a few?';
     }
     $scope.currentUser = Auth.getCurrentUser();
+    console.log('currentUser', $scope.currentUser);
     $scope.holder = [];
 
 
